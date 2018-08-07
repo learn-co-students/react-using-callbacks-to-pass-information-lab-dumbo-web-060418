@@ -7,10 +7,22 @@ export default class Matrix extends Component {
 
   constructor() {
     super()
+    this.state= {
+      colorState: '#FFF'
+    }
   }
 
+  setColor = (hex) => {
+    this.setState({
+      colorState: hex
+    })
+  }
+
+  getSelectedColor = () => (this.state.colorState)
+
+
   genRow = (vals) => (
-    vals.map((val, idx) => <Cell key={idx} color={val} />)
+    vals.map((val, idx) => <Cell key={idx} color={val} getSelectedColor={this.getSelectedColor}/>)
   )
 
   genMatrix = () => (
@@ -19,9 +31,10 @@ export default class Matrix extends Component {
 
 
   render() {
+    console.log(this.state);
     return (
       <div id="app">
-        <ColorSelector />
+        <ColorSelector setColor={this.setColor}/>
         <div id="matrix">
           {this.genMatrix()}
         </div>
